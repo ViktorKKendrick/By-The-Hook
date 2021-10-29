@@ -4,7 +4,11 @@ import { Container, Row, Col, Card, Image } from 'react-bootstrap'
 export default function EasterEgg() {
     return (
         <div className='bg-warning'>
-
+<Container className='text-center bg-warning mx-auto'>
+                <Row className='bg-warning'>
+                    <h1>It's Costume Day</h1>
+                </Row>
+            </Container>
 
             <Row>
                 <Col>
@@ -18,11 +22,7 @@ export default function EasterEgg() {
                     <Image src='./Img/h8.jpg' />
                 </Col>
             </Row>
-            <Container className='text-center bg-warning mx-auto'>
-                <Row className='bg-warning'>
-                    <h1>It's Costume Day</h1>
-                </Row>
-            </Container>
+            
 
             <Row>
 
