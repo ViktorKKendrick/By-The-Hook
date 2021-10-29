@@ -7,6 +7,7 @@ export default function EasterEgg() {
 <Container className='text-center bg-warning mx-auto'>
                 <Row className='bg-warning'>
                     <h1>It's Costume Day</h1>
+                    <h4>Shame on everyone who didn't dress up</h4>
                 </Row>
             </Container>
 
