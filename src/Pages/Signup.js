@@ -1,18 +1,11 @@
 import React from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import axios, { Axios } from "axios";
-
-const registerUser = 'https://port-3000-aincbootcampapi-ianrios529550.codeanyapp.com/api/auth/register'
-const login = 'https://port-3000-aincbootcampapi-ianrios529550.codeanyapp.com/api/auth/login'
-const getLogin = 'https://port-3000-aincbootcampapi-ianrios529550.codeanyapp.com/api/auth/user'
-const logOut = 'https://port-3000-aincbootcampapi-ianrios529550.codeanyapp.com/api/auth/logout'
+import { useState} from "react";
+import axios from "axios";
 
 export default function SignUp() {
     const [data, setData] = useState({});
-    const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
-
+    // const [error, setError] = useState(null);
 
 
     const handleChange = e => setData(prevState => {
@@ -20,28 +13,25 @@ export default function SignUp() {
 
         return { ...prevState, [e.target.id]: e.target.value }
     });
-    // useEffect(() => {
-
-    // }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('User Created')
-        console.log(data)
-        // ran axios call sending all the user data
-        axios.post('registerUser', {
-            firstName: data.firstName,
-            lastName: data.lastName,
+//POST data from input (I.E  => name, email, password)
+        axios.post('https://aincbootcampapi-ianrios529550.codeanyapp.com/api/auth/register', {
+            name: data.firstName + ' ' + data.lastName,
             email: data.email,
-            password: data.password
+            password: data.password,
         })
         .then(function(response){
             console.log(response)
+            //Gets the token and saves it to local storage
+            const token = response.data.data.token
+                localStorage.setItem('token', token)
         })
         .catch(function (error) {
             console.log(error);
         })
-        // save data to localstorage
+
     }
 
 
@@ -56,33 +46,31 @@ export default function SignUp() {
             <Row>
                 <Form onSubmit={handleSubmit}>
                     <Col className='pt-5 text-center'>
-                        <Form.Group onChange={handleChange} value={data.firstName || ""}>
+
+                        <Form.Group onChange={handleChange} value={data.firstName= ""}>
                             <Form.Label>First Name  </Form.Label>
                             <Form.Control id='firstName' type="text" placeholder="John" />
                         </Form.Group>
 
-                        <Form.Group onChange={handleChange} value={data.lastName || ""}>
+                        <Form.Group onChange={handleChange} value={data.lastName= ""}>
                             <Form.Label>Last Name  </Form.Label>
                             <Form.Control id='lastName' type="text" placeholder="Doe" />
                         </Form.Group>
 
-                        <Form.Group onChange={handleChange} value={data.email || ""}>
+                        <Form.Group onChange={handleChange} value={data.email= ""}>
                             <Form.Label>E-Mail  </Form.Label>
                             <Form.Control id='email' type="text" placeholder="John.Doe@website.com" />
                         </Form.Group>
 
-                        <Form.Group onChange={handleChange} value={data.password || ""}>
+                        <Form.Group onChange={handleChange} value={data.password= ""}>
                             <Form.Label>Password  </Form.Label>
-                            <Form.Control id='password' type="text" placeholder="Create a password" />
+                            <Form.Control id='password' type="text" placeholder="password" />
                         </Form.Group>
 
-                        <Button type='submit' className='btn btn-primary mt-3'>Sign Up</Button>
+                        <Button type='submit' className='btn btn-dark mt-3'>Sign Up</Button>
                     </Col>
                 </Form>
             </Row>
         </Container>
-
-
     )
-    // console.log(SignUp)
 }
